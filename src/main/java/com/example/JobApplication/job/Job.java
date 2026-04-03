@@ -1,6 +1,7 @@
 package com.example.JobApplication.job;
 
 import com.example.JobApplication.company.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,4 +24,6 @@ public class Job {
     private Long maxSalary;
     private String location;
 
+    @ManyToOne
+    private Company company;
 }
