@@ -11,4 +11,6 @@ public interface CompanyService {
     String create(Company company);
 
     boolean delete(Integer id);
+
+    Company getById(Integer id);
 }

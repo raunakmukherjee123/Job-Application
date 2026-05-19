@@ -43,4 +43,9 @@ public class CompanyServiceImpl implements CompanyService{
         }
         return false;
     }
+
+    @Override
+    public Company getById(Integer id) {
+        return companyRepository.findById(id).orElse(null);
+    }
 }
