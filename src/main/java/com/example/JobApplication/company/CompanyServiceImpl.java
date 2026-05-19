@@ -33,4 +33,14 @@ public class CompanyServiceImpl implements CompanyService{
         companyRepository.save(company);
         return "Created company";
     }
+
+    @Override
+    public boolean delete(Integer id) {
+        if(companyRepository.existsById(id))
+        {
+            companyRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
