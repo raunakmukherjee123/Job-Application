@@ -2,6 +2,7 @@ package com.example.JobApplication.review;
 
 import com.example.JobApplication.company.Company;
 import com.example.JobApplication.company.CompanyService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,8 +45,33 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public String updateReview(Integer companyId, Integer reviewId, Review review) {
+    public String updateReview(Integer companyId, Integer reviewId, Review updatedReview) {
+        if (companyService.getById(companyId) != null) {
+            updatedReview.setCompany(companyService.getById(companyId));
+            updatedReview.setId(reviewId);
+            reviewRepository.save(updatedReview);
+            return "Review updated";
+        } else {
+            return "Not updated";
+        }
+    }
 
-        return "Review updated";
+    @Transactional
+    @Override
+    public String deleteReview(Integer companyId, Integer reviewId) {
+        if (companyService.getById(companyId) != null && reviewRepository.existsById(reviewId)) {
+            Review review = reviewRepository.findById(reviewId).orElse(null);
+
+            Company company = review.getCompany();
+
+            company.getReviews().remove(review);
+
+            companyService.updateCompany(companyId, company);
+
+            reviewRepository.deleteById(reviewId);
+
+            return "Review has been deleted";
+        }
+        return "Cannot be deleted";
     }
 }

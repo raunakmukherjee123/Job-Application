@@ -11,4 +11,6 @@ public interface ReviewService {
     Review getReviewBydId(Integer companyId, Integer reviewId);
 
     String updateReview(Integer companyId, Integer reviewId, Review review);
+
+    String deleteReview(Integer companyId, Integer reviewId);
 }
