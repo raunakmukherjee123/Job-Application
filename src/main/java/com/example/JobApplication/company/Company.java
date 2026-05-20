@@ -1,6 +1,7 @@
 package com.example.JobApplication.company;
 
 import com.example.JobApplication.job.Job;
+import com.example.JobApplication.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,12 @@ public class Company {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "company")
-@JsonIgnore
+    @JsonIgnore
 //    @JoinColumn(name = "company_id",referencedColumnName = "id")
     private List<Job> jobs;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "company")
+
+//    @JoinColumn(name = "company_id",referencedColumnName = "id")
+    private List<Review> reviews;
 }
